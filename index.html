@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<title>Franz Manifesto</title>
+	<meta name="description" content="Everything I read and puts into practice, by month.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&display=swap"
+		rel="stylesheet">
+	<style>
+		:root {
+			--bg: #fff;
+			--ink: #000;
+			--soft: #6b6b6b;
+			--line: #e6e6e6;
+			--serif: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+			--sans: 'Geist', 'Helvetica Neue', Arial, sans-serif;
+			box-sizing: border-box;
+			padding-top: env(safe-area-inset-top, 0px);
+			padding-bottom: env(safe-area-inset-bottom, 0px);
+		}
+
+		html {
+			scroll-padding-top: env(safe-area-inset-top, 0px);
+			color-scheme: light
+		}
+
+		*,
+		*::before,
+		*::after {
+			box-sizing: inherit
+		}
+
+		body {
+			margin: 0;
+			background: var(--bg);
+			color: var(--ink);
+			font-family: var(--sans);
+			font-size: 16px;
+			line-height: 1.5;
+			-webkit-font-smoothing: antialiased
+		}
+
+		.wrap {
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 72px 28px 120px
+		}
+
+		header {
+			margin-bottom: 64px
+		}
+
+		h1 {
+			font-family: var(--serif);
+			font-weight: 400;
+			font-size: clamp(56px, 11vw, 112px);
+			line-height: .92;
+			letter-spacing: -.025em;
+			margin: 0 0 20px
+		}
+
+		.lede {
+			color: var(--soft);
+			max-width: 42ch;
+			margin: 0 0 44px
+		}
+
+		nav {
+			display: flex;
+			gap: 28px;
+			flex-wrap: wrap;
+			position: relative
+		}
+
+		nav::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 1px;
+			background: var(--ink);
+			transform-origin: left;
+			animation: draw 1.2s .7s cubic-bezier(.7, 0, .2, 1) backwards
+		}
+
+		nav button {
+			font: inherit;
+			font-weight: 500;
+			background: none;
+			border: 0;
+			padding: 0 0 12px;
+			margin-bottom: -1px;
+			cursor: pointer;
+			color: var(--soft);
+			border-bottom: 3px solid transparent
+		}
+
+		nav button sup {
+			font-size: .7em;
+			margin-left: 3px;
+			font-weight: 400
+		}
+
+		nav button[aria-selected="true"] {
+			color: var(--ink);
+			border-bottom-color: var(--ink)
+		}
+
+		nav button:hover {
+			color: var(--ink)
+		}
+
+		:focus-visible {
+			outline: 2px solid var(--ink);
+			outline-offset: 3px
+		}
+
+		.month {
+			display: grid;
+			grid-template-columns: 200px 1fr;
+			gap: 12px 32px;
+			padding: 36px 0;
+			border-bottom: 1px solid var(--line)
+		}
+
+		.month h2 {
+			font-family: var(--serif);
+			font-weight: 400;
+			font-size: 34px;
+			line-height: 1;
+			margin: 0;
+			letter-spacing: -.01em
+		}
+
+		.month h2 span {
+			display: block;
+			font-family: var(--sans);
+			font-size: 13px;
+			color: var(--soft);
+			margin-top: 8px;
+			letter-spacing: 0
+		}
+
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0
+		}
+
+		li {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			gap: 4px 20px;
+			padding: 0 0 22px
+		}
+
+		li:last-child {
+			padding-bottom: 0
+		}
+
+		.t {
+			font-weight: 500;
+			font-size: 18px;
+			line-height: 1.3;
+			color: var(--ink);
+			text-decoration: none;
+			background: linear-gradient(currentColor, currentColor) 0 100%/0 1px no-repeat;
+			transition: background-size .25s
+		}
+
+		a.t:hover {
+			background-size: 100% 1px
+		}
+
+		.m {
+			color: var(--soft);
+			font-size: 14px;
+			grid-column: 1
+		}
+
+		.m i {
+			font-style: normal;
+			color: var(--ink);
+			margin-left: 12px
+		}
+
+		.n {
+			grid-column: 1;
+			color: var(--soft);
+			font-family: var(--serif);
+			font-style: italic;
+			font-size: 17px
+		}
+
+		.r {
+			grid-column: 2;
+			grid-row: 1/3;
+			display: flex;
+			align-items: flex-start;
+			gap: 8px;
+			white-space: nowrap
+		}
+
+		.r b {
+			font-family: var(--serif);
+			font-weight: 400;
+			font-size: 28px;
+			line-height: 1
+		}
+
+		.r small {
+			font-size: 12px;
+			color: var(--soft);
+			padding-top: 2px
+		}
+
+		.r button {
+			font: inherit;
+			width: 24px;
+			height: 24px;
+			border-radius: 50%;
+			border: 1px solid var(--ink);
+			background: var(--bg);
+			color: var(--ink);
+			cursor: pointer;
+			line-height: 1;
+			padding: 0
+		}
+
+		.r button:hover {
+			background: var(--ink);
+			color: var(--bg)
+		}
+
+		.empty {
+			padding: 48px 0;
+			color: var(--soft)
+		}
+
+		/* ---- load animation ---- */
+		@keyframes rise {
+			from {
+				transform: translateY(105%)
+			}
+		}
+
+		@keyframes up {
+			from {
+				opacity: 0;
+				transform: translateY(18px)
+			}
+		}
+
+		@keyframes draw {
+			from {
+				transform: scaleX(0)
+			}
+		}
+
+		.ln {
+			display: block;
+			overflow: hidden;
+			padding-bottom: .14em;
+			margin-bottom: -.14em
+		}
+
+		.ln span {
+			display: block;
+			animation: rise 1.1s cubic-bezier(.2, .8, .2, 1) backwards
+		}
+
+		.ln:nth-child(2) span {
+			animation-delay: .12s
+		}
+
+		.lede {
+			animation: up .9s .55s cubic-bezier(.2, .8, .2, 1) backwards
+		}
+
+		.intro nav button {
+			animation: up .7s cubic-bezier(.2, .8, .2, 1) backwards
+		}
+
+		.intro nav button:nth-child(1) {
+			animation-delay: .85s
+		}
+
+		.intro nav button:nth-child(2) {
+			animation-delay: .95s
+		}
+
+		.intro nav button:nth-child(3) {
+			animation-delay: 1.05s
+		}
+
+		.month h2,
+		.month li {
+			animation: up .8s var(--d, 0s) cubic-bezier(.2, .8, .2, 1) backwards
+		}
+
+		.still * {
+			animation: none !important
+		}
+
+		@media(prefers-reduced-motion:reduce) {
+
+			*,
+			*::before,
+			*::after {
+				animation: none !important;
+				transition: none !important
+			}
+		}
+
+		@media(max-width:640px) {
+			.wrap {
+				padding: 48px 20px 80px
+			}
+
+			.month {
+				grid-template-columns: 1fr;
+				padding: 28px 0
+			}
+
+			.month h2 span {
+				display: inline;
+				margin-left: 10px
+			}
+		}
+	</style>
+</head>
+
+<body class="intro">
+	<div class="wrap">
+		<header>
+			<h1><span class="ln"><span>Franz</span></span><span class="ln"><span>Manifesto</span></span></h1>
+			<p class="lede">Everything I read and put into practice, by month, with how many times I came back to it.
+			</p>
+			<nav role="tablist" id="tabs" aria-label="Categories"></nav>
+		</header>
+		<main id="out"></main>
+	</div>
+
+	<script>
+		/* ---------- ADD NEW ENTRIES HERE ----------
+		   type:  "papers" | "articles" | "blogs"
+		   month: "YYYY-MM"
+		   reads: how many times you've read it
+		   built: true if you implemented it (optional)
+		   note:  one line of your own (optional)             */
+		const ENTRIES = [
+			{type: "papers", month: "2026-10", t: "Efficient Memory Management for Large Language Model Serving with PagedAttention", by: "Kwon et al., 2023", url: "https://arxiv.org/abs/2309.06180", reads: 1},
+			{type: "papers", month: "2026-10", t: "AIBrix: Towards Scalable, Cost-Effective Large Language Model Inference Infrastructure", by: "The AIBrix Team, 2025", url: "https://arxiv.org/abs/2504.03648", reads: 1},
+			{type: "papers", month: "2026-10", t: "SGLang: Efficient Execution of Structured Language Model Programs", by: "Zheng et al., 2023", url: "https://arxiv.org/abs/2312.07104", reads: 1},
+			{type: "papers", month: "2026-10", t: "What every systems programmer should know about concurrency", by: "Matt Kline, 2017", url: "https://bitbashing.io/concurrency-primer.html", reads: 1},
+			{type: "papers", month: "2026-09", t: "BERT: Pre-training of Deep Bidirectional Transformers", by: "Devlin et al., 2018", url: "https://arxiv.org/abs/1810.04805", reads: 3, built: true},
+			{type: "papers", month: "2026-09", t: "An O(1) algorithm for implementing the LFU cache eviction scheme", by: "Matani et al., 2021", url: "https://arxiv.org/abs/2110.11602", reads: 1},
+			{type: "papers", month: "2026-09", t: "An overview of data warehousing and OLAP technology", by: "Chaudhuri & Dayal, 1997", url: "https://dl.acm.org/doi/10.1145/248603.248616", reads: 1},
+			{type: "papers", month: "2026-09", t: "Ubiquitous B-Tree", by: "Comer, 1979", url: "https://dl.acm.org/doi/10.1145/356770.356776", reads: 1},
+			{type: "papers", month: "2026-08", t: "Adam: A Method for Stochastic Optimization", by: "Kingma & Ba, 2014", url: "https://arxiv.org/abs/1412.6980", reads: 1},
+
+			{type: "articles", month: "2026-10", t: "All About Transformer Inference", by: "Austin et al., 2025", url: "https://jax-ml.github.io/scaling-book/inference/#tricks-for-improving-generation-throughput-and-latency", reads: 1},
+			{type: "articles", month: "2026-10", t: "Life of an inference request (vLLM V1): How LLMs are served efficiently at scale", by: "Junhao Li, 2025", url: "https://www.ubicloud.com/blog/life-of-an-inference-request-vllm-v1", reads: 1},
+			{type: "articles", month: "2026-10", t: "The Architecture of Open Source Applications", by: "Amy Brown & Greg Wilson, 2011–2012", url: "https://aosabook.org/en/index.html", reads: 1},
+			{type: "articles", month: "2026-10", t: "Intro to CUDA C++", by: "NVIDIA, 2026", url: "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html", reads: 1},
+			{type: "articles", month: "2026-09", t: "Reflections on Trusting Trust", by: "Ken Thompson, 1984", url: "", reads: 1},
+
+			{type: "blogs", month: "2026-10", t: "Unlocking Performance: A Guide to Lock-Free Data Structures in Go", by: "Nathan B. Crocker, 2024", url: "https://medium.com/@nathanbcrocker/unlocking-performance-a-guide-to-lock-free-data-structures-in-go-924344cb3774", reads: 1},
+			{type: "blogs", month: "2026-10", t: "Learning Inference: A case study for beginners", by: "Abhijith Neil Abraham, 2026", url: "https://medium.com/@abhijithneilabraham/learning-inference-a-case-study-for-beginners-3eb9b2309226", reads: 1},
+			{type: "blogs", month: "2026-10", t: "Scaling PostgreSQL to power 800 million ChatGPT users", by: "Bohan Zhang, 2026", url: "https://openai.com/index/scaling-postgresql/", reads: 1},
+			{type: "blogs", month: "2026-10", t: "Day 48: System Design Concept :Cache Invalidation Strategies", by: "CoVaib DeepLearn, 2025", url: "https://medium.com/@shivanimutke2501/day-48-system-design-concept-cache-invalidation-strategies-de15e32020cf", reads: 1},
+			{type: "blogs", month: "2026-09", t: "Lil’Log: Attention? Attention!", by: "Lilian Weng", url: "https://lilianweng.github.io/", reads: 2},
+			{type: "blogs", month: "2026-09", t: "❄️ ICE Candidates (Host, Reflexive, Relay) — A Beginner-Friendly Explanation", by: "Jothiprakash, 2025", url: "https://medium.com/@jothiprakash888/%EF%B8%8F-ice-candidates-host-reflexive-relay-a-beginner-friendly-explanation-83122686ff85", reads: 1},
+			{type: "blogs", month: "2026-09", t: "Understanding the Decorator Design Pattern in Go: A Practical Guide", by: "Priyank Chheda, 2026", url: "https://medium.com/design-bootcamp/understanding-the-decorator-design-pattern-in-go-a-practical-guide-493b4048f953", reads: 1}
+		];
+		/* ------------------------------------------ */
+
+		const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		const TYPES = [["papers", "Papers"], ["articles", "Articles"], ["blogs", "Blogs"]];
+		let current = "papers";
+
+		const key = e => "franzmanifesto:" + e.type + ":" + e.t;
+		function reads(e) {try {const v = localStorage.getItem(key(e)); return v === null ? e.reads : parseInt(v, 10);} catch (_) {return e.reads;} }
+		function bump(e) {const n = reads(e) + 1; try {localStorage.setItem(key(e), String(n));} catch (_) {e.reads = n;} document.body.classList.remove("intro"); render(false);}
+		const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+
+		function render(anim = true) {
+			const tabs = document.getElementById("tabs");
+			tabs.innerHTML = TYPES.map(([k, l]) => {
+				const c = ENTRIES.filter(e => e.type === k).length;
+				return `<button role="tab" aria-selected="${k === current}" data-k="${k}">${l}<sup>${c}</sup></button>`;
+			}).join("");
+			tabs.querySelectorAll("button").forEach(b => b.onclick = () => {current = b.dataset.k; document.body.classList.remove("intro"); render();});
+
+			const list = ENTRIES.filter(e => e.type === current);
+			const out = document.getElementById("out");
+			out.className = anim ? "" : "still";
+			if (!list.length) {out.innerHTML = '<p class="empty">Nothing here yet. Add your first entry.</p>'; return;}
+
+			const groups = {};
+			list.forEach(e => (groups[e.month] = groups[e.month] || []).push(e));
+			out.innerHTML = Object.keys(groups).sort().reverse().map((m, mi) => {
+				const [y, mm] = m.split("-"); const items = groups[m];
+				const li = items.map((e, k) => {
+					const idx = ENTRIES.indexOf(e);
+					const title = e.url ? `<a class="t" href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.t)}</a>` : `<span class="t">${esc(e.t)}</span>`;
+					const n = reads(e);
+					return `<li style="--d:${(1 + mi * 0.15 + k * 0.08).toFixed(2)}s">${title}
+        <div class="m">${esc(e.by || "")}${e.built ? "<i>Implemented</i>" : ""}</div>
+        ${e.note ? `<div class="n">${esc(e.note)}</div>` : ""}
+        <div class="r"><b>${n}</b><small>${n === 1 ? "read" : "reads"}</small><button data-i="${idx}" aria-label="Add a read to ${esc(e.t)}">+</button></div>
+      </li>`;
+				}).join("");
+				return `<section class="month" style="--d:${(0.95 + mi * 0.15).toFixed(2)}s"><h2>${MONTHS[+mm - 1]}<span>${y}</span></h2><ul>${li}</ul></section>`;
+			}).join("");
+			out.querySelectorAll(".r button").forEach(b => b.onclick = () => bump(ENTRIES[+b.dataset.i]));
+			if (anim && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+				out.querySelectorAll(".r b").forEach((el, i) => {
+					const to = +el.textContent, t0 = performance.now() + 1000 + i * 80;
+					el.textContent = 0;
+					(function step(now) {
+						const p = Math.min(Math.max((now - t0) / 800, 0), 1);
+						el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+						if (p < 1) requestAnimationFrame(step);
+					})(performance.now());
+				});
+			}
+		}
+		render();
+		setTimeout(() => document.body.classList.remove("intro"), 2500);
+	</script>
+</body>
+
+</html>
