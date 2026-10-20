@@ -242,6 +242,27 @@
 			color: var(--soft)
 		}
 
+		footer {
+			margin-top: 56px;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 8px 20px;
+			font-size: 13px;
+			color: var(--soft)
+		}
+
+		footer a {
+			color: inherit;
+			text-decoration: underline;
+			text-decoration-thickness: 1px;
+			text-underline-offset: 3px
+		}
+
+		footer a:hover {
+			color: var(--ink)
+		}
+
 		/* ---- load animation ---- */
 		@keyframes rise {
 			from {
@@ -340,6 +361,10 @@
 			<nav role="tablist" id="tabs" aria-label="Categories"></nav>
 		</header>
 		<main id="out"></main>
+		<footer>
+			<a href="mailto:davidenenama@gmail.com">davidenenama@gmail.com</a>
+			<a href="https://github.com/franzego" target="_blank" rel="noopener">github.com/franzego</a>
+		</footer>
 	</div>
 
 	<script>
@@ -364,6 +389,7 @@
 			{type: "articles", month: "2026-10", t: "Life of an inference request (vLLM V1): How LLMs are served efficiently at scale", by: "Junhao Li, 2025", url: "https://www.ubicloud.com/blog/life-of-an-inference-request-vllm-v1", reads: 1},
 			{type: "articles", month: "2026-10", t: "The Architecture of Open Source Applications", by: "Amy Brown & Greg Wilson, 2011–2012", url: "https://aosabook.org/en/index.html", reads: 1},
 			{type: "articles", month: "2026-10", t: "Intro to CUDA C++", by: "NVIDIA, 2026", url: "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/intro-to-cuda-cpp.html", reads: 1},
+			{type: "articles", month: "2026-10", t: "Notes on Distributed Systems for Young Bloods", by: "Jeff Hodges, 2013", url: "https://www.somethingsimilar.com/2013/01/14/notes-on-distributed-systems-for-young-bloods/", reads: 1},
 			{type: "articles", month: "2026-09", t: "Reflections on Trusting Trust", by: "Ken Thompson, 1984", url: "", reads: 1},
 
 			{type: "blogs", month: "2026-10", t: "Unlocking Performance: A Guide to Lock-Free Data Structures in Go", by: "Nathan B. Crocker, 2024", url: "https://medium.com/@nathanbcrocker/unlocking-performance-a-guide-to-lock-free-data-structures-in-go-924344cb3774", reads: 1},
