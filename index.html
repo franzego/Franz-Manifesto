@@ -220,22 +220,21 @@
 			padding-top: 2px
 		}
 
-		.r button {
-			font: inherit;
+		.r .plus {
+			flex: 0 0 auto;
 			width: 24px;
 			height: 24px;
 			border-radius: 50%;
-			border: 1px solid var(--ink);
-			background: var(--bg);
-			color: var(--ink);
-			cursor: pointer;
+			border: 1px solid var(--soft);
+			color: var(--soft);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 16px;
 			line-height: 1;
-			padding: 0
-		}
-
-		.r button:hover {
-			background: var(--ink);
-			color: var(--bg)
+			opacity: .55;
+			cursor: default;
+			user-select: none
 		}
 
 		.empty {
@@ -302,10 +301,6 @@
 		.month h2,
 		.month li {
 			animation: up .8s var(--d, 0s) cubic-bezier(.2, .8, .2, 1) backwards
-		}
-
-		.still * {
-			animation: none !important
 		}
 
 		@media(prefers-reduced-motion:reduce) {
@@ -385,12 +380,9 @@
 		const TYPES = [["papers", "Papers"], ["articles", "Articles"], ["blogs", "Blogs"]];
 		let current = "papers";
 
-		const key = e => "franzmanifesto:" + e.type + ":" + e.t;
-		function reads(e) {try {const v = localStorage.getItem(key(e)); return v === null ? e.reads : parseInt(v, 10);} catch (_) {return e.reads;} }
-		function bump(e) {const n = reads(e) + 1; try {localStorage.setItem(key(e), String(n));} catch (_) {e.reads = n;} document.body.classList.remove("intro"); render(false);}
 		const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
 
-		function render(anim = true) {
+		function render() {
 			const tabs = document.getElementById("tabs");
 			tabs.innerHTML = TYPES.map(([k, l]) => {
 				const c = ENTRIES.filter(e => e.type === k).length;
@@ -400,7 +392,6 @@
 
 			const list = ENTRIES.filter(e => e.type === current);
 			const out = document.getElementById("out");
-			out.className = anim ? "" : "still";
 			if (!list.length) {out.innerHTML = '<p class="empty">Nothing here yet. Add your first entry.</p>'; return;}
 
 			const groups = {};
@@ -408,19 +399,17 @@
 			out.innerHTML = Object.keys(groups).sort().reverse().map((m, mi) => {
 				const [y, mm] = m.split("-"); const items = groups[m];
 				const li = items.map((e, k) => {
-					const idx = ENTRIES.indexOf(e);
 					const title = e.url ? `<a class="t" href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.t)}</a>` : `<span class="t">${esc(e.t)}</span>`;
-					const n = reads(e);
+					const n = e.reads;
 					return `<li style="--d:${(1 + mi * 0.15 + k * 0.08).toFixed(2)}s">${title}
         <div class="m">${esc(e.by || "")}${e.built ? "<i>Implemented</i>" : ""}</div>
         ${e.note ? `<div class="n">${esc(e.note)}</div>` : ""}
-        <div class="r"><b>${n}</b><small>${n === 1 ? "read" : "reads"}</small><button data-i="${idx}" aria-label="Add a read to ${esc(e.t)}">+</button></div>
+        <div class="r"><b>${n}</b><small>${n === 1 ? "read" : "reads"}</small><span class="plus" aria-hidden="true">+</span></div>
       </li>`;
 				}).join("");
 				return `<section class="month" style="--d:${(0.95 + mi * 0.15).toFixed(2)}s"><h2>${MONTHS[+mm - 1]}<span>${y}</span></h2><ul>${li}</ul></section>`;
 			}).join("");
-			out.querySelectorAll(".r button").forEach(b => b.onclick = () => bump(ENTRIES[+b.dataset.i]));
-			if (anim && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+			if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
 				out.querySelectorAll(".r b").forEach((el, i) => {
 					const to = +el.textContent, t0 = performance.now() + 1000 + i * 80;
 					el.textContent = 0;
